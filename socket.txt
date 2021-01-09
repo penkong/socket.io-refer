@@ -1,0 +1,139 @@
+pre :
+
+
+ws --> socket.io
+
+
+7 layer osi model 
+
+
+client ---- packets ----- server
+
+
+phisycal link network transport application
+cable   wifi    ip     udp/tcp   http/ftp/ssh/smtp
+
+transport make 2^16 port 
+
+
+port ---> take req ---> transport --> wrap it ---> segment
+
+segment : 
+metaData(dest port , source port and ...)
+
+
+transport layer protocol : udp , tcp
+
+udp : connection less , light , consistency , send data no matter what 
+FAST
+
+tcp : connection base , 3 way hand shake , reliable , delivery ,
+in order packets 
+
+
+
+websocket use tcp 
+
+App message : header(metaData) + body (has his own format png jpeg and ...) -> new message
+
+Transport message : header(sourc port , sequence number , ack number adn ...)  + body (entire App message) 
+
+
+network message : header(ip and ...)  + body (Transport message)
+
+
+link message : header (mac address ...) + body (network message)
+
+.
+.
+.
+
+
+check website microchipdevelper tcpip five layer model
+
+
+websocket tcp open always .
+
+
+
+browser --- node 
+protocol is ws 
+
+on each side something must can translate ws protocol
+
+
+old days 
+
+we did polling 
+
+it sit until data back
+
+
+
+
+headers event : come before response 
+
+101 switching protocols
+i know it is http
+but i want upgrade it to websocet 
+Upgrade : websocket
+
+
+
+
+why socket.io ??
+firewall 
+antivirus , 
+proxy server 
+ws not reconnect by it self .
+rooming 
+blob translation 
+
+
+in socket.io you send buffer .
+
+socket.io ---> engine.io ---> ws 
+
+
+engine.io make long polling connection to bypass stuff
+
+
+
+ALL these are server only
+
+
+//////////
+
+slack :
+
+Send an event from the server to this socket only:
+
+socket.emit()
+socket.send()
+
+
+Send an event from a socket to a room:
+
+NOTE: remember, this will not go to the sending socket
+
+socket.to(roomName).emit()
+socket.in(roomName).emit()
+
+
+Because each socket has it's own room, named by it's socket.id, a socket can send a message to another socket:
+
+socket.to(anotherSocketId).emit('hey');
+socket.in(anotherSocketId).emit('hey');
+
+
+A namespace can send a message to any room:
+
+io.of(aNamespace).to(roomName).emit()
+io.of(aNamespace).in(roomName).emit()
+
+
+A namespace can send a message to the entire namespace
+
+io.emit()
+io.of('/').emit()
+io.of('/admin').emit()
