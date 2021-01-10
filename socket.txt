@@ -137,3 +137,46 @@ A namespace can send a message to the entire namespace
 io.emit()
 io.of('/').emit()
 io.of('/admin').emit()
+
+
+Namesapces :
+workspaces 
+
+are way to group a bunch of sockets together
+
+
+
+on client side make new io listener on route of server 
+localhost/adimn
+
+on server use 
+io.on('connection', socket => {
+  socket.on("message', () => {
+    io.of(/admin).dasdsa
+    io.of(/).dasfsadsa
+  })
+})
+
+
+
+user can only listen on one socket.
+
+
+client have no idea of room 
+it know about namespace
+
+namespace.to(room) : everybody will get it 
+socket.to(room) everybody will get it but socket itself
+
+first we join then we to
+
+
+work of main namespace is to manage other namespaces
+
+
+
+http 
+start line 
+header 
+body
+
